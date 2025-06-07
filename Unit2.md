@@ -179,45 +179,6 @@ E → TE'
 E' → +TE' | -TE' | ε
 ```
 
-### Method 2: Algorithm for Eliminating Left Recursion
-
-**Step 1:** Arrange non-terminals in some order A₁, A₂, ..., Aₙ
-
-**Step 2:** For i = 1 to n do:
-
-```
-For j = 1 to i-1 do:
-    Replace each production of form Aᵢ → Aⱼγ
-    with Aᵢ → δ₁γ | δ₂γ | ... | δₖγ
-    where Aⱼ → δ₁ | δ₂ | ... | δₖ are all Aⱼ productions
-
-Eliminate immediate left recursion for Aᵢ
-```
-
-#### Complete Example:
-
-**Original Grammar:**
-
-```
-S → Aa | b
-A → Ac | Sd | ε
-```
-
-**Step 1:** Order: S, A
-
-**Step 2:**
-
-- For A → Sd, substitute S productions:
-  ```
-  A → Aad | bd | Ac | ε
-  ```
-- Eliminate immediate left recursion:
-  ```
-  S → Aa | b
-  A → bdA' | A'
-  A' → adA' | cA' | ε
-  ```
-
 ---
 
 ## Non-Deterministic Grammar
@@ -278,36 +239,6 @@ A → αβ₁ | αβ₂ | γ
 A → αA' | γ
 A' → β₁ | β₂
 ```
-
-#### Method 2: Precedence and Associativity Rules
-
-**Original Ambiguous:**
-
-```
-E → E + E | E * E | (E) | id
-```
-
-**Resolved with Precedence:**
-
-```
-E → E + T | T
-T → T * F | F
-F → (E) | id
-```
-
-#### Method 3: Rewriting Grammar Rules
-
-**Dangling Else Example:**
-
-```
-S → MS | US
-MS → if E then MS else MS | other
-US → if E then S | if E then MS else US
-```
-
-Where MS = matched statement, US = unmatched statement
-
----
 
 ## Comprehensive Examples
 
